@@ -98,8 +98,8 @@ var PiDataService = (function () {
         this.headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Content-Type': 'application/json' });
     }
     PiDataService.prototype.getPIData = function () {
-        var testCall = this.piWebApiURL + '/streams/A0EZ2p7MdUQTUCtLlKDN7d5QAQyAVZw8L5xGpVwANOjb6cASXFvOdnMjFs7YPKa9YA81QU0FUVVJOMDU3XEJBUlJJQ0sgSEFVTCBUUlVDS1MgU0lURVxUUlVDSyA0MDF8QUZUUkNMUiBURU1Q/plot';
-        //   let testCall = 'https://proghackuc2017.osisoft.com/piwebapi/streams/A0EZ2p7MdUQTUCtLlKDN7d5QAQyAVZw8L5xGpVwANOjb6cAqqqTMrIhcVE1lXcA9LQIXQU0FUVVJOMDU3XEJBUlJJQ0sgSEFVTCBUUlVDS1MgU0lURVxUUlVDSyA0MDF8RlVFTCBTQ09SRQ/plot'
+        //    let testCall = this.piWebApiURL + '/streams/A0EZ2p7MdUQTUCtLlKDN7d5QAQyAVZw8L5xGpVwANOjb6cASXFvOdnMjFs7YPKa9YA81QU0FUVVJOMDU3XEJBUlJJQ0sgSEFVTCBUUlVDS1MgU0lURVxUUlVDSyA0MDF8QUZUUkNMUiBURU1Q/plot';
+        var testCall = 'https://proghackuc2017.osisoft.com/piwebapi/streams/A0EZ2p7MdUQTUCtLlKDN7d5QAQyAVZw8L5xGpVwANOjb6cAqqqTMrIhcVE1lXcA9LQIXQU0FUVVJOMDU3XEJBUlJJQ0sgSEFVTCBUUlVDS1MgU0lURVxUUlVDSyA0MDF8RlVFTCBTQ09SRQ/plot';
         var username = 'osiproghack\hackuser066';
         var password = 'h3ektweiF6%';
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
@@ -119,6 +119,35 @@ var PiDataService = (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
         headers.append('Authorization', 'Basic b3NpcHJvZ2hhY2tcaGFja3VzZXIwNjY6aDNla3R3ZWlGNiU=');
         return this.http.get(testCall, { headers: headers });
+        //    let testCall = this.piWebApiURL + "/elements?path=" + 
+        //    "\\\\SATURN057\\Barrick Haul Trucks Site\\Truck " + truckId + "|AFTRCLR TEMP";
+        //
+        //    let batchRequest: any = {};
+        //
+        //batchRequest["AttributeInfo"] = {
+        //    "Method": 'GET',
+        //    "Resource": testCall
+        //};
+        //batchRequest["AttributeData"] = {                           
+        //    "Method": 'GET',
+        //    "ParentIds": [
+        //        "AttributeInfo"
+        //    ],
+        //    "Parameters":[
+        //        "$.AttributeInfo.Content.Links.Value"
+        //    ],
+        //    "Resource":  "{0}"
+        //};
+        //
+        //let username = 'osiproghack\hackuser066';
+        //let password = 'h3ektweiF6%';
+        //
+        //let headers = new Headers({
+        //    data: batchRequest
+        //});
+        //headers.append('Authorization', 'Basic b3NpcHJvZ2hhY2tcaGFja3VzZXIwNjY6aDNla3R3ZWlGNiU=');
+        //
+        //return this.http.post(testCall, {headers: headers});
     };
     PiDataService.prototype.getTrucks = function () {
         //    https://localhost/piwebapi/elements?path=\\EME\Power\Atlanta%20Data%20Center\Server%20Rack1\ION%206200%20Power%20Meter1
@@ -129,6 +158,41 @@ var PiDataService = (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
         headers.append('Authorization', 'Basic b3NpcHJvZ2hhY2tcaGFja3VzZXIwNjY6aDNla3R3ZWlGNiU=');
         return this.http.get(testCall, { headers: headers });
+    };
+    PiDataService.prototype.getTruck1 = function (truckId) {
+        var testCall = this.piWebApiURL + "/elements?path=" +
+            "\\\\SATURN057\\Barrick Haul Trucks Site\\Truck " + truckId + "|AFTRCLR TEMP";
+        var batchRequest = {};
+        var pointMetadataReq = [];
+        //pointMetadataReq.push(baseURL+ "/attributes?path=" + path);
+        batchRequest["AttributeInfo"] = {
+            "Method": 'GET',
+            "Resource": testCall
+        };
+        batchRequest["AttributeData"] = {
+            "Method": 'GET',
+            "ParentIds": [
+                "AttributeInfo"
+            ],
+            "Parameters": [
+                "$.AttributeInfo.Content.Links.Value"
+            ],
+            "Resource": "{0}"
+        };
+        var username = 'osiproghack\hackuser066';
+        var password = 'h3ektweiF6%';
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({
+            data: batchRequest
+        });
+        headers.append('Authorization', 'Basic b3NpcHJvZ2hhY2tcaGFja3VzZXIwNjY6aDNla3R3ZWlGNiU=');
+        return this.http.post(testCall, { headers: headers });
+        ////make the calls
+        //console.log("Making PI WebAPI Call ", pointMetadataReq);
+        //return $http({
+        //    method: 'POST',
+        //    url: baseBatchURL,
+        //    data: batchRequest,
+        //    withCredentials: true
     };
     PiDataService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
@@ -198,21 +262,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var HomeComponent = (function () {
     function HomeComponent(piDataService) {
         this.piDataService = piDataService;
-        this.title = 'Total Fuel Score';
+        this.title = 'Fuel Score';
         this.todayProd = {
-            title: "Today's Production",
-            value: "500",
-            units: "Tons"
+            title: "Power KPI",
+            value: "79.5",
+            units: "%"
         };
         this.yesterdayProd = {
-            title: "Yesterday's Production",
-            value: "7,300",
-            units: "Tons"
+            title: "Utilization",
+            value: "85.2",
+            units: "%"
         };
         this.monthlyProd = {
-            title: "Monthly Production",
-            value: "5,400,000",
-            units: "Tons"
+            title: "Alerts",
+            value: "24",
+            units: ""
         };
     }
     HomeComponent.prototype.ngOnInit = function () {
